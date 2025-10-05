@@ -5,6 +5,10 @@
         <SvgIcon icon="hamburger-opened" class="hamburger-icon" v-show="commonStore.state.isOpenMenu" />
         <SvgIcon icon="hamburger-closed" class="hamburger-icon" v-show="!commonStore.state.isOpenMenu" />
       </div>
+      <div class="breadcrumb-container">
+        <Breadcrumb></Breadcrumb>
+      </div>
+
     </div>
     <div class="right-menu">
       <!-- 头像 -->
@@ -34,9 +38,9 @@
 <script setup>
 import { useUserStore } from '@/store'
 import { useCommonStore } from '@/store/modules/useCommonStore'
+import Breadcrumb from '@/layout/components/breadcrumb/index.vue'
 const commonStore = useCommonStore()
 const store = useUserStore()
-
 function logout() {
   store.logout()
 }
@@ -77,10 +81,12 @@ function toggleSidebar() {
 
   .left-menu {
     display: inline-flex;
+    line-height: 50px;
+    align-items: center;
 
     .hamburger {
       width: 50px;
-      padding: 12px;
+      padding: 0px 12px;
       cursor: pointer;
 
       &:hover {
@@ -91,6 +97,11 @@ function toggleSidebar() {
         width: 20px;
         height: 20px;
       }
+    }
+
+    .breadcrumb-container {
+      height: 50px;
+      padding-top: 14px;
     }
 
   }

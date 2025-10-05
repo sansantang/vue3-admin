@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logo">
+    <div class="logo-container">
       <div class="avatar-wrapper">
         <el-avatar shape="square" :size="commonStore.state.isOpenMenu ? 40 : 24"
           :src="userStore.state.userInfo.avatar" />
@@ -20,10 +20,12 @@ import { useUserStore } from '@/store'
 import { useCommonStore } from '@/store/modules/useCommonStore'
 const userStore = useUserStore()
 const commonStore = useCommonStore()
+const minHeight = commonStore.state.isOpenMenu ? 40 : 24
 </script>
 
 <style lang="scss" scoped>
-.logo {
+.logo-container {
+  min-height: v-bind(minHeight) px;
   padding-top: 15px;
   display: flex;
   flex-direction: column;
