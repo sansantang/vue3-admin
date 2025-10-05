@@ -1,9 +1,11 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item v-for="(item, index) in matched" :key="item.path"
-      :to="index === matched.length - 1 ? undefined : { path: item.path }">
-      <span :style="{ color: index === matched.length - 1 ? '#97a8be' : 'black' }">{{ item.meta.title }}</span>
-    </el-breadcrumb-item>
+    <TransitionGroup name="breadcrumb">
+      <el-breadcrumb-item v-for="(item, index) in matched" :key="item.path"
+        :to="index === matched.length - 1 ? undefined : { path: item.path }">
+        <span :style="{ color: index === matched.length - 1 ? '#97a8be' : 'black' }">{{ item.meta.title }}</span>
+      </el-breadcrumb-item>
+    </TransitionGroup>
   </el-breadcrumb>
 </template>
 
@@ -22,4 +24,19 @@ const matched = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+</style>
