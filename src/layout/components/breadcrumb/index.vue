@@ -17,7 +17,7 @@ const route = useRoute();
 const matched = computed(() => {
   // 过滤掉没有标题的路由，并排除根路径
   return route.matched.filter(item => {
-    return item.meta && item.meta.title && item.meta.title !== 'Root';
+    return item.meta && item.meta.title;
   });
 });
 </script>
