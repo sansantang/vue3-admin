@@ -1,0 +1,63 @@
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/store'
+//console.log(import.meta.env.VITE_BASE_API)
+
+// 创建axios实例
+const service = axios.create({
+  timeout: 10000, // 请求超时时间
+  // baseURL: import.meta.env.VITE_BASE_API
+  baseURL: ''
+})
+
+service.interceptors.request.use(
+  function (config) {
+    const store = useUserStore()
+    const token = store.state.token
+    // 在发送请求之前做些什么
+    config.headers.Authorization = 'Bearer ' + token
+    return config
+  },
+  function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error)
+  }
+)
+
+service.interceptors.response.use(
+  (res) => {
+    const { success, data, message } = res.data
+    if (success) {
+      return data
+    } else {
+      const NETWORK_ERROR = '网络请求出错'
+      ElMessage.error(message || NETWORK_ERROR)
+      return Promise.reject(message || NETWORK_ERROR)
+    }
+  },
+  (error) => {
+    // 处理网络错误、超时等情况
+    if (error.response) {
+      // 服务器返回了错误状态码
+      if (error.response.status === 401) {
+        const store = useUserStore()
+        store.logout()
+      }
+      ElMessage.error(`请求失败: ${error.response.status}`)
+    } else if (error.request) {
+      // 请求已发送但没有收到响应
+      ElMessage.error('网络连接失败')
+    } else {
+      // 设置请求时发生错误
+      ElMessage.error('请求配置错误')
+    }
+    return Promise.reject(error)
+  }
+)
+
+function request(options) {
+  options.method = options.method || 'get'
+  return service(options)
+}
+
+export default request
