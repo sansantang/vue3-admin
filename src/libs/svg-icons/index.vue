@@ -2,7 +2,7 @@
   <!-- 外部图标 -->
   <div v-if="isExternalIcon" :style="styleExternalIcon" class="svg-icon-external svg-icon"></div>
   <!-- 内部图标 -->
-  <svg v-else :class="className" aria-hidden="true">
+  <svg v-else :class="className">
     <use :xlink:href="iconName"></use>
   </svg>
 </template>

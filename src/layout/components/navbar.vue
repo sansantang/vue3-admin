@@ -11,6 +11,25 @@
 
     </div>
     <div class="right-menu">
+      <!-- 国际化 切换语言 -->
+      <el-dropdown trigger="click" class="international" @command="toggleLanguage">
+        <div>
+          <el-tooltip content="国际化">
+            <SvgIcon icon="language" class="language-icon" />
+          </el-tooltip>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item :disabled="commonStore.state.language === 'zh'" command="zh">
+              中文
+            </el-dropdown-item>
+            <el-dropdown-item :disabled="commonStore.state.language === 'en'" command="en">
+              English
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -39,14 +58,26 @@
 import { useUserStore } from '@/store'
 import { useCommonStore } from '@/store/modules/useCommonStore'
 import Breadcrumb from '@/layout/components/breadcrumb/index.vue'
+import { ElMessage } from 'element-plus'
+import SvgIcon from '@/libs/svg-icons/index.vue'
+import { useI18n } from 'vue-i18n'
 const commonStore = useCommonStore()
 const store = useUserStore()
+const i18n = useI18n()
+
 function logout() {
   store.logout()
 }
 
 function toggleSidebar() {
   commonStore.OpenOrCloseMenu()
+}
+
+// 切换语言的方法
+function toggleLanguage(lang) {
+  i18n.locale.value = lang
+  commonStore.toggleLanguage(lang)
+  ElMessage.success('更新成功')
 }
 </script>
 
@@ -64,7 +95,14 @@ function toggleSidebar() {
     float: right;
     padding-right: 16px;
 
-    ::v-deep .avatar-container {
+    .language-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      cursor: pointer;
+    }
+
+    :deep(.avatar-container) {
       cursor: pointer;
 
       .avatar-wrapper {
