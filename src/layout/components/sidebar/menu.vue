@@ -6,15 +6,15 @@
     <template v-for="item in menuList" :key="item.path">
       <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 0">
         <template #title>
-          <MenuIcon :icon="item.meta.icon" :title="item.meta.title" />
+          <MenuIcon :icon="item.meta.icon" :title="generateRouteTitle(item.meta.title)" />
         </template>
         <el-menu-item v-for="children in item.children" :key="children.path" :index="children.path">
-          <MenuIcon :icon="children.meta.icon" :title="children.meta.title" />
+          <MenuIcon :icon="children.meta.icon" :title="generateRouteTitle(children.meta.title)" />
         </el-menu-item>
       </el-sub-menu>
       <!-- 一级 menu 菜单 -->
       <el-menu-item v-else :index="item.path">
-        <MenuIcon :icon="item.meta.icon" :title="item.meta.title" />
+        <MenuIcon :icon="item.meta.icon" :title="generateRouteTitle(item.meta.title)" />
       </el-menu-item>
     </template>
   </el-menu>
@@ -28,6 +28,8 @@ import MenuIcon from './menuIcon.vue'
 import { useVarCssStore } from '@/store/modules/useVariableStore'
 import { computed } from 'vue'
 import { useCommonStore } from '@/store/modules/useCommonStore'
+
+import { generateRouteTitle } from '@/utils/i18n'
 const commonStore = useCommonStore()
 const store = useVarCssStore()
 

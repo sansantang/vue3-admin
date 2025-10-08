@@ -4,7 +4,7 @@
       <el-breadcrumb-item v-for="(item, index) in matched" :key="item.path"
         :to="index === matched.length - 1 ? undefined : { path: item.path }">
         <span :style="{ color: index === matched.length - 1 ? '#97a8be' : 'black' }">{{
-          item.meta.title
+          generateRouteTitle(item.meta.title)
           }}</span>
       </el-breadcrumb-item>
     </TransitionGroup>
@@ -14,6 +14,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { generateRouteTitle } from '@/utils/i18n'
 
 const route = useRoute()
 

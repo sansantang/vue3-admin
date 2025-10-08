@@ -39,13 +39,13 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item> {{ $t('msg.navBar.home') }} </el-dropdown-item>
             </router-link>
             <a target="_blank" href="">
-              <el-dropdown-item>课程主页</el-dropdown-item>
+              <el-dropdown-item>{{ $t('msg.navBar.course') }} </el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="logout">
-              退出登录
+              {{ $t('msg.navBar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -77,7 +77,7 @@ function toggleSidebar() {
 function toggleLanguage(lang) {
   i18n.locale.value = lang
   commonStore.toggleLanguage(lang)
-  ElMessage.success('更新成功')
+  ElMessage.success(i18n.t('msg.toast.switchLangSuccess'))
 }
 </script>
 

@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/index'
 import router from '@/router'
+import { useI18n } from 'vue-i18n'
 const store = useUserStore()
 const loginForm = reactive({
   username: 'super-admin',
@@ -10,15 +11,13 @@ const loginForm = reactive({
 })
 
 const formRef = ref(null)
-
+const i18n = useI18n()
 const rules = reactive({
   username: [
-    { required: true, message: '请输入账号', trigger: 'blur' },
-    { min: 2, max: 20, message: '长度应为 2 到 20 个字符', trigger: 'blur' },
+    { required: true, message: i18n.t('msg.login.usernameRule'), trigger: 'blur' },
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '长度应为 6 到 20 个字符', trigger: 'blur' },
+    { required: true, min: 6, message: i18n.t('msg.login.passwordRule'), trigger: 'blur' },
   ],
 })
 
@@ -47,18 +46,19 @@ function handleLogin() {
   <div class="body-login">
     <el-form :model="loginForm" class="login-container" ref="formRef" :rules="rules">
       <h1>
-        用户登录{{ store.state.name }}
+        {{ $t('msg.login.title') }}
       </h1>
       <el-form-item prop="username">
 
-        <el-input type="input" placeholder="请输入账号" v-model="loginForm.username" :prefix-icon="User"></el-input>
+        <el-input type="input" :placeholder="$t('msg.login.usernamePlaceholder')" v-model="loginForm.username"
+          :prefix-icon="User"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="loginForm.password" show-password
-          :prefix-icon="Lock"></el-input>
+        <el-input type="password" :placeholder="$t('msg.login.passwordPlaceholder')" v-model="loginForm.password"
+          show-password :prefix-icon="Lock"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleLogin">登录</el-button>
+        <el-button type="primary" @click="handleLogin">{{ $t('msg.login.loginBtn') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
