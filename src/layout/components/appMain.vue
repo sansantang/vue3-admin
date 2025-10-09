@@ -1,11 +1,13 @@
 <template>
   <div class="app-main">
+    <CommonTag></CommonTag>
     <RouterView> </RouterView>
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
+// import { RouterView } from 'vue-router';
+import CommonTag from './tags/index.vue'
 
 
 </script>

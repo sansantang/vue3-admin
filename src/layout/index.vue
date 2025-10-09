@@ -9,6 +9,7 @@
         <navbar />
       </div>
       <!-- 内容区 -->
+
       <app-main />
     </div>
   </div>
@@ -20,6 +21,8 @@ import Sidebar from './components/sidebar/index.vue';
 import AppMain from './components/appMain.vue';
 import variables from '@/styles/sass/variables.module.scss';
 import { useCommonStore } from '@/store/modules/useCommonStore'
+
+
 const commonStore = useCommonStore()
 const { sideBarWidth } = variables;
 

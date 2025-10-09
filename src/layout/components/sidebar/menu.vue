@@ -8,12 +8,13 @@
         <template #title>
           <MenuIcon :icon="item.meta.icon" :title="generateRouteTitle(item.meta.title)" />
         </template>
-        <el-menu-item v-for="children in item.children" :key="children.path" :index="children.path">
+        <el-menu-item v-for="children in item.children" :key="children.path" :index="children.path"
+          @click="handleGoRouter(children)">
           <MenuIcon :icon="children.meta.icon" :title="generateRouteTitle(children.meta.title)" />
         </el-menu-item>
       </el-sub-menu>
       <!-- 一级 menu 菜单 -->
-      <el-menu-item v-else :index="item.path">
+      <el-menu-item v-else :index="item.path" @click="handleGoRouter(item)">
         <MenuIcon :icon="item.meta.icon" :title="generateRouteTitle(item.meta.title)" />
       </el-menu-item>
     </template>
@@ -28,10 +29,12 @@ import MenuIcon from './menuIcon.vue'
 import { useVarCssStore } from '@/store/modules/useVariableStore'
 import { computed } from 'vue'
 import { useCommonStore } from '@/store/modules/useCommonStore'
+import { useTagsStore } from '@/store/modules/useTagsStore'
 
 import { generateRouteTitle } from '@/utils/i18n'
 const commonStore = useCommonStore()
 const store = useVarCssStore()
+const tagsStore = useTagsStore()
 
 const router = useRouter()
 const routes = router.getRoutes()
@@ -49,6 +52,10 @@ const activeMenu = computed(() => {
   return path
 })
 
+const handleGoRouter = (item) => {
+  router.push(item.path)
+  tagsStore.selectMenuTotags(item);
+}
 </script>
 <style lang="scss" scoped>
 .subMenuIconItem {
