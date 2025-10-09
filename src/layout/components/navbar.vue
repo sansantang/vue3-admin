@@ -11,6 +11,8 @@
 
     </div>
     <div class="right-menu">
+      <!-- 主题切换 -->
+      <Selectheme></Selectheme>
       <!-- 国际化 切换语言 -->
       <el-dropdown trigger="click" class="international" @command="toggleLanguage">
         <div>
@@ -61,6 +63,8 @@ import Breadcrumb from '@/layout/components/breadcrumb/index.vue'
 import { ElMessage } from 'element-plus'
 import SvgIcon from '@/libs/svg-icons/index.vue'
 import { useI18n } from 'vue-i18n'
+import Selectheme from '@/components/ThemeSelect/Selectheme.vue'
+
 const commonStore = useCommonStore()
 const store = useUserStore()
 const i18n = useI18n()
