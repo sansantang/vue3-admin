@@ -11,17 +11,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useThemeStore } from '@/store/modules/themeStore'
+import { useVarCssStore } from '@/store/modules/useVariableStore'
 import { DEFAULT_COLOR } from '@/constant/index'
 
 
 const currentTheme = ref(DEFAULT_COLOR)
 const themeSotre = useThemeStore();
+const varCssStore = useVarCssStore();
+
+onMounted(() => {
+  const theme = themeSotre.state.themeColor;
+  switch (theme) {
+    case '#409eff':
+      currentTheme.value = DEFAULT_COLOR;
+      break;
+    case '#B2203F':
+      currentTheme.value = '#B2203F';
+      break;
+    case 'red':
+      currentTheme.value = 'red';
+      break;
+  }
+})
+
 
 // 切换主题
 const changeTheme = (theme) => {
   themeSotre.setThemeColor(theme);
+  varCssStore.setThemeColor(theme);
 }
 </script>
 
