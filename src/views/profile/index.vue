@@ -1,7 +1,10 @@
 <template>
-  <div class="">个人中心 {{ $t('message.hello') }}</div>
-  <el-pagination v-model:current-page="currentPage1" :page-size="100" :size="size" :disabled="disabled"
-    :background="background" layout="total, prev, pager, next" :total="1000" />
+  <div class="">个人中心 {{ $t('message.hello') }}
+
+
+    <el-pagination v-model:current-page="currentPage1" :page-size="100" :size="size" :disabled="disabled"
+      :background="background" layout="total, prev, pager, next" :total="1000" />
+  </div>
 </template>
 
 <script setup>
