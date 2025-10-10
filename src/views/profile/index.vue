@@ -38,9 +38,6 @@
           <div class="function-item">ESLint + Git Hooks</div>
           <div class="function-item">
             架构设计
-            <div class="architecture-desc">
-              阿里前端 P7 岗被称为《技术专家》，也有人喜欢叫他们为“前端架构师”，既然被称为“架构师”，那么架构设计当然是不可缺少的一环咯
-            </div>
           </div>
           <div class="function-item">权限验证（页面权限、功能权限、动态权限、权限配置）</div>
           <div class="function-item">功能引导</div>
